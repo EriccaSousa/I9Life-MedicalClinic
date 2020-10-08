@@ -29,7 +29,7 @@ public class Cliente {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Responsavel responsavel;
 	private String observacoes;
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "Cliente", targetEntity = Prontuario.class, cascade = CascadeType.ALL)
 	private List<Prontuario> prontuarios;
 
 	public Cliente() {

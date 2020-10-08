@@ -2,6 +2,8 @@ package i9Life.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Prontuario {
@@ -9,6 +11,8 @@ public class Prontuario {
 	private int idProntuario;
 	private String observacoes;
 	private String diagnostico;
+	@ManyToOne
+	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
 
 	public Prontuario() {
