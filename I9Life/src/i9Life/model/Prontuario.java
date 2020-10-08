@@ -1,6 +1,8 @@
 package i9Life.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -8,6 +10,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Prontuario {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idProntuario;
 	private String observacoes;
 	private String diagnostico;
@@ -55,6 +58,12 @@ public class Prontuario {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public static Prontuario cria(int idProntuario, String observacoes, String diagnostico, Cliente cliente) {
+		Prontuario newProntuario = new Prontuario(0, observacoes, diagnostico, cliente);
+
+		return newProntuario;
 	}
 
 	@Override

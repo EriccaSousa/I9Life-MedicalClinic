@@ -6,15 +6,24 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@NamedQueries({ @NamedQuery(name = "Cliente.findAll", query = "from Cliente"),
+		@NamedQuery(name = "Cliente.findByNome", query = "from Cliente a where a.nome = ?1"),
+		@NamedQuery(name = "Cliente.findByEmail", query = "from Cliente a where a.email = ?1"),
+		@NamedQuery(name = "Cliente.delete", query = "from Cliente a where a.email = ?1") })
 public class Cliente {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idCliente;
 	private String nome;
 	private String cpf;
@@ -29,14 +38,14 @@ public class Cliente {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Responsavel responsavel;
 	private String observacoes;
-	@OneToMany(mappedBy = "Cliente", targetEntity = Prontuario.class, cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Prontuario> prontuarios;
 
 	public Cliente() {
 	}
 
 	public Cliente(int idCliente, String nome, String cpf, Date dataNasc, String email, Telefone tell,
-			Endereco endereco, Responsavel responsavel, String observacoes) {
+			Endereco endereco, Responsavel responsavel, String observacoes, List<Prontuario> prontuarios) {
 		this.idCliente = idCliente;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -46,6 +55,7 @@ public class Cliente {
 		this.observacoes = observacoes;
 		this.endereco = endereco;
 		this.tell = tell;
+		this.prontuarios = prontuarios;
 	}
 
 	public int getIdCliente() {
@@ -120,19 +130,28 @@ public class Cliente {
 		this.observacoes = observacoes;
 	}
 
-	public static Cliente cadastra(int idCliente, String nome, String cpf, Date dataNasc, String email, Telefone tell,
-			Endereco endereco, Responsavel responsavel, String observacoes) {
+	public List<Prontuario> getProntuarios() {
+		return prontuarios;
+	}
 
-		Cliente newCliente = new Cliente(0, nome, cpf, dataNasc, email, tell, endereco, responsavel, observacoes);
+	public void setProntuarios(List<Prontuario> prontuarios) {
+		this.prontuarios = prontuarios;
+	}
+
+	public static Cliente cadastra(int idCliente, String nome, String cpf, Date dataNasc, String email, Telefone tell,
+			Endereco endereco, Responsavel responsavel, String observacoes, List<Prontuario> prontuarios) {
+
+		Cliente newCliente = new Cliente(0, nome, cpf, dataNasc, email, tell, endereco, responsavel, observacoes,
+				prontuarios);
 
 		return newCliente;
 	}
 
 	@Override
 	public String toString() {
-		return "/nCliente [idCliente=" + idCliente + ", nome=" + nome + ", cpf=" + cpf + ", dataNasc=" + dataNasc
-				+ ", email=" + email + ", tell=" + tell + ", endereco=" + endereco + ", responsavel=" + responsavel
-				+ ", observacoes=" + observacoes + "]";
+		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", cpf=" + cpf + ", dataNasc=" + dataNasc
+				+ ", email=" + email + "tell=" + tell + "endereco=" + endereco + "responsavel=" + responsavel
+				+ "observacoes=" + observacoes + "prontuarios=" + prontuarios + "]";
 	}
 
 }
