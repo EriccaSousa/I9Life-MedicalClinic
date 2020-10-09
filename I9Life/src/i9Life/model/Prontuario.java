@@ -17,15 +17,19 @@ public class Prontuario {
 	@ManyToOne
 	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
+	@ManyToOne
+	@JoinColumn(name = "idMedico")
+	private Medico medico;
 
 	public Prontuario() {
 	}
 
-	public Prontuario(int idProntuario, String observacoes, String diagnostico, Cliente cliente) {
+	public Prontuario(int idProntuario, String observacoes, String diagnostico, Cliente cliente, Medico medico) {
 		this.idProntuario = idProntuario;
 		this.observacoes = observacoes;
 		this.diagnostico = diagnostico;
 		this.cliente = cliente;
+		this.medico = medico;
 	}
 
 	public int getIdProntuario() {
@@ -60,16 +64,25 @@ public class Prontuario {
 		this.cliente = cliente;
 	}
 
-	public static Prontuario cria(int idProntuario, String observacoes, String diagnostico, Cliente cliente) {
-		Prontuario newProntuario = new Prontuario(0, observacoes, diagnostico, cliente);
+	public Medico getMedico() {
+		return medico;
+	}
+
+	public void setMedico(Medico medico) {
+		this.medico = medico;
+	}
+
+	public static Prontuario cria(int idProntuario, String observacoes, String diagnostico, Cliente cliente,
+			Medico medico) {
+		Prontuario newProntuario = new Prontuario(0, observacoes, diagnostico, cliente, medico);
 
 		return newProntuario;
 	}
 
 	@Override
 	public String toString() {
-		return "/nProntuario [idProntuario=" + idProntuario + ", observacoes=" + observacoes + ", diagnostico="
-				+ diagnostico + ", cliente=" + cliente + "]";
+		return "Prontuario [idProntuario=" + idProntuario + ", observacoes=" + observacoes + ", diagnostico="
+				+ diagnostico + ", cliente=" + cliente + ", medico=" + medico + "]";
 	}
 
 }

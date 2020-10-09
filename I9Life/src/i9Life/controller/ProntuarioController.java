@@ -4,14 +4,16 @@ import javax.persistence.PersistenceException;
 
 import i9Life.dao.GenericJPA_DAO;
 import i9Life.model.Cliente;
+import i9Life.model.Medico;
 import i9Life.model.Prontuario;
 
 public class ProntuarioController {
 
 	// Ok
-	public static void cadastra(int idProntuario, String observacoes, String diagnostico, Cliente cliente) {
+	public static void cadastra(int idProntuario, String observacoes, String diagnostico, Cliente cliente,
+			Medico medico) {
 
-		Prontuario newProntuario = new Prontuario(idProntuario, observacoes, diagnostico, cliente);
+		Prontuario newProntuario = new Prontuario(idProntuario, observacoes, diagnostico, cliente, medico);
 
 		try {
 			if (!(newProntuario.equals(null))) {
