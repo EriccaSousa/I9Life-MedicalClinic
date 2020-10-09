@@ -40,12 +40,15 @@ public class Cliente {
 	private String observacoes;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Prontuario> prontuarios;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Consulta> consultas;
 
 	public Cliente() {
 	}
 
 	public Cliente(int idCliente, String nome, String cpf, Date dataNasc, String email, Telefone tell,
-			Endereco endereco, Responsavel responsavel, String observacoes, List<Prontuario> prontuarios) {
+			Endereco endereco, Responsavel responsavel, String observacoes, List<Prontuario> prontuarios,
+			List<Consulta> consultas) {
 		this.idCliente = idCliente;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -56,6 +59,7 @@ public class Cliente {
 		this.endereco = endereco;
 		this.tell = tell;
 		this.prontuarios = prontuarios;
+		this.consultas = consultas;
 	}
 
 	public int getIdCliente() {
@@ -138,11 +142,20 @@ public class Cliente {
 		this.prontuarios = prontuarios;
 	}
 
+	public List<Consulta> getConsultas() {
+		return consultas;
+	}
+
+	public void setConsultas(List<Consulta> consultas) {
+		this.consultas = consultas;
+	}
+
 	public static Cliente cadastra(int idCliente, String nome, String cpf, Date dataNasc, String email, Telefone tell,
-			Endereco endereco, Responsavel responsavel, String observacoes, List<Prontuario> prontuarios) {
+			Endereco endereco, Responsavel responsavel, String observacoes, List<Prontuario> prontuarios,
+			List<Consulta> consultas) {
 
 		Cliente newCliente = new Cliente(0, nome, cpf, dataNasc, email, tell, endereco, responsavel, observacoes,
-				prontuarios);
+				prontuarios, consultas);
 
 		return newCliente;
 	}
@@ -150,8 +163,8 @@ public class Cliente {
 	@Override
 	public String toString() {
 		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", cpf=" + cpf + ", dataNasc=" + dataNasc
-				+ ", email=" + email + "tell=" + tell + "endereco=" + endereco + "responsavel=" + responsavel
-				+ "observacoes=" + observacoes + "prontuarios=" + prontuarios + "]";
+				+ ", email=" + email + ", tell=" + tell + ", endereco=" + endereco + ", responsavel=" + responsavel
+				+ ", observacoes=" + observacoes + ", prontuarios=" + prontuarios + ", consultas=" + consultas + "]";
 	}
 
 }

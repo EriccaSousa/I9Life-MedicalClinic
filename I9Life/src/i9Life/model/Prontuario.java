@@ -1,11 +1,13 @@
 package i9Life.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Prontuario {
@@ -20,16 +22,20 @@ public class Prontuario {
 	@ManyToOne
 	@JoinColumn(name = "idMedico")
 	private Medico medico;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Consulta consulta;
 
 	public Prontuario() {
 	}
 
-	public Prontuario(int idProntuario, String observacoes, String diagnostico, Cliente cliente, Medico medico) {
+	public Prontuario(int idProntuario, String observacoes, String diagnostico, Cliente cliente, Medico medico,
+			Consulta consulta) {
 		this.idProntuario = idProntuario;
 		this.observacoes = observacoes;
 		this.diagnostico = diagnostico;
 		this.cliente = cliente;
 		this.medico = medico;
+		this.consulta = consulta;
 	}
 
 	public int getIdProntuario() {
@@ -72,9 +78,17 @@ public class Prontuario {
 		this.medico = medico;
 	}
 
+	public Consulta getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(Consulta consulta) {
+		this.consulta = consulta;
+	}
+
 	public static Prontuario cria(int idProntuario, String observacoes, String diagnostico, Cliente cliente,
-			Medico medico) {
-		Prontuario newProntuario = new Prontuario(0, observacoes, diagnostico, cliente, medico);
+			Medico medico, Consulta consulta) {
+		Prontuario newProntuario = new Prontuario(0, observacoes, diagnostico, cliente, medico, consulta);
 
 		return newProntuario;
 	}
@@ -82,7 +96,7 @@ public class Prontuario {
 	@Override
 	public String toString() {
 		return "Prontuario [idProntuario=" + idProntuario + ", observacoes=" + observacoes + ", diagnostico="
-				+ diagnostico + ", cliente=" + cliente + ", medico=" + medico + "]";
+				+ diagnostico + ", cliente=" + cliente + ", medico=" + medico + ", consulta=" + consulta + "]";
 	}
 
 }

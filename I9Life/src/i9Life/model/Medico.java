@@ -27,12 +27,14 @@ public class Medico {
 	private String especialidade;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Prontuario> prontuarios;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Consulta> consultas;
 
 	public Medico() {
 	}
 
 	public Medico(int idMedico, String nome, String cpf, String email, String crm, String especialidade,
-			List<Prontuario> prontuarios) {
+			List<Prontuario> prontuarios, List<Consulta> consultas) {
 		this.idMedico = idMedico;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -40,6 +42,7 @@ public class Medico {
 		this.crm = crm;
 		this.especialidade = especialidade;
 		this.prontuarios = prontuarios;
+		this.consultas = consultas;
 	}
 
 	public int getIdMedico() {
@@ -98,10 +101,18 @@ public class Medico {
 		this.prontuarios = prontuarios;
 	}
 
-	public static Medico criarMedico(int id, String nome, String cpf, String email, String crm, String especialidade,
-			List<Prontuario> prontuarios) {
+	public List<Consulta> getConsultas() {
+		return consultas;
+	}
 
-		Medico newMedico = new Medico(0, nome, cpf, email, crm, especialidade, prontuarios);
+	public void setConsultas(List<Consulta> consultas) {
+		this.consultas = consultas;
+	}
+
+	public static Medico criarMedico(int id, String nome, String cpf, String email, String crm, String especialidade,
+			List<Prontuario> prontuarios, List<Consulta> consultas) {
+
+		Medico newMedico = new Medico(0, nome, cpf, email, crm, especialidade, prontuarios, consultas);
 
 		return newMedico;
 
@@ -110,7 +121,8 @@ public class Medico {
 	@Override
 	public String toString() {
 		return "Medico [idMedico=" + idMedico + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", crm=" + crm
-				+ ", especialidade=" + especialidade + ", prontuarios=" + prontuarios + "]";
+				+ ", especialidade=" + especialidade + ", prontuarios=" + prontuarios + ", consultas=" + consultas
+				+ "]";
 	}
 
 }

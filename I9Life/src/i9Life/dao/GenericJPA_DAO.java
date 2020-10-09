@@ -64,6 +64,17 @@ public class GenericJPA_DAO<T> implements GenericDAO<T> {
 	// Funcionando
 	@SuppressWarnings("unchecked")
 	@Override
+	public List<T> findById(int id) {
+		Query query = entityManager.createNamedQuery("T.findById");
+
+		query.setParameter(1, id);
+
+		return query.getResultList();
+	}
+
+	// Funcionando
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<T> findAll() {
 		Query query = entityManager.createNamedQuery("T.findAll");
 

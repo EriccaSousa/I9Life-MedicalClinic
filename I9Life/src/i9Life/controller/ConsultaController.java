@@ -1,5 +1,7 @@
 package i9Life.controller;
 
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -9,24 +11,27 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import i9Life.dao.GenericJPA_DAO;
+import i9Life.model.Cliente;
+import i9Life.model.Consulta;
 import i9Life.model.Medico;
+import i9Life.model.Prontuario;
 
-public class MedicoController {
+public class ConsultaController {
 
 	// Ok
-	public static void cadastra(int id, String nome, String cpf, String email, String crm, String especialidade) {
+	public static void cadastra(int id, Medico medico, Cliente cliente, Date data, String observacoes,
+			Prontuario prontuario) {
 
-		Medico newMedico = Medico.criarMedico(id, nome, cpf, email, crm, especialidade, null, null);
+		Consulta newConsulta = new Consulta(id, medico, cliente, data, observacoes);
 
 		try {
-			if (!(newMedico.equals(null))) {
-				GenericJPA_DAO<Medico> genericDAO = new GenericJPA_DAO<Medico>();
+			if (!(newConsulta.equals(null))) {
+				GenericJPA_DAO<Consulta> genericDAO = new GenericJPA_DAO<Consulta>();
 
-				genericDAO.persist(newMedico);
+				genericDAO.persist(newConsulta);
 				genericDAO.close();
-
 			} else {
-				System.out.println("Erro ao cadastrar Cliente.");
+				System.out.println("Erro ao cadastrar Prontuario.");
 
 			}
 		} catch (IllegalStateException | PersistenceException e) {
@@ -36,17 +41,17 @@ public class MedicoController {
 	}
 
 	// Ok
-	public static Medico findByEmail(String email) {
+	public static Consulta findById(int id) {
 
 		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("dev");
 			EntityManager em = emf.createEntityManager();
 
-			Query query = em.createNamedQuery("Medico.findByEmail");
+			Query query = em.createNamedQuery("Consulta.findById");
 
-			query.setParameter(1, email);
+			query.setParameter(1, id);
 
-			return (Medico) query.getSingleResult();
+			return (Consulta) query.getSingleResult();
 
 		} catch (NoResultException | NonUniqueResultException | IllegalArgumentException e) {
 			System.out.println("Erro ao realizar pesquisa.");

@@ -12,6 +12,8 @@ public interface GenericDAO<T> {
 
 	public List<T> findAll(); // Funcionando
 
+	public List<T> findById(int id);
+
 	public boolean update(T entity); // Funcionando
 
 	public T delete(String email);

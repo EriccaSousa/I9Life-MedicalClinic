@@ -28,7 +28,7 @@ public class ClienteController {
 		Endereco newEndereco = new Endereco(0, cep, bairro, numeroEnd, complemento, cidade);
 
 		Cliente newCliente = new Cliente(idCliente, nome, cpf, dataNasc, email, newTelefone, newEndereco,
-				newResponsavel, observacoes, null);
+				newResponsavel, observacoes, null, null);
 		try {
 			if (!(newCliente.equals(null))) {
 				GenericJPA_DAO<Cliente> genericDAO = new GenericJPA_DAO<Cliente>();

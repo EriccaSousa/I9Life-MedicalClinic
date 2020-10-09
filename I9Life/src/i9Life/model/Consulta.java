@@ -2,25 +2,48 @@ package i9Life.model;
 
 import java.util.Date;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@NamedQueries({ @NamedQuery(name = "Consulta.findAll", query = "from Consulta"),
+		@NamedQuery(name = "Consulta.findById", query = "from Consulta a where a.id = ?1") })
 public class Consulta {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@ManyToOne
+	@JoinColumn(name = "idMedico")
 	private Medico medico;
-	private Cliente paciente;
+	@ManyToOne
+	@JoinColumn(name = "idCliente")
+	private Cliente cliente;
+	@Basic
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 	private String observacoes;
-	private Prontuario prontuario;
 
 	public Consulta() {
 
 	}
 
-	public Consulta(int id, Medico medico, Cliente paciente, Date data, String observacoes, Prontuario prontuario) {
+	public Consulta(int id, Medico medico, Cliente cliente, Date data, String observacoes) {
 		this.id = id;
 		this.medico = medico;
-		this.paciente = paciente;
+		this.cliente = cliente;
 		this.data = data;
 		this.observacoes = observacoes;
-		this.prontuario = prontuario;
 	}
 
 	public int getId() {
@@ -40,11 +63,11 @@ public class Consulta {
 	}
 
 	public Cliente getPaciente() {
-		return paciente;
+		return cliente;
 	}
 
-	public void setPaciente(Cliente paciente) {
-		this.paciente = paciente;
+	public void setPaciente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public Date getData() {
@@ -63,18 +86,10 @@ public class Consulta {
 		this.observacoes = observacoes;
 	}
 
-	public Prontuario getProntuario() {
-		return prontuario;
-	}
-
-	public void setProntuario(Prontuario prontuario) {
-		this.prontuario = prontuario;
-	}
-
 	@Override
 	public String toString() {
-		return "Consulta [id=" + id + ", medico=" + medico + ", paciente=" + paciente + ", data=" + data
-				+ ", observacoes=" + observacoes + ", prontuario=" + prontuario + "]";
+		return "Consulta [id=" + id + ", medico=" + medico + ", paciente=" + cliente + ", data=" + data
+				+ ", observacoes=" + observacoes + "]";
 	}
 
 }
