@@ -10,8 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "email", "cpf", "crm" }))
 @NamedQueries({ @NamedQuery(name = "Medico.findAll", query = "from Medico"),
 		@NamedQuery(name = "Medico.findByNome", query = "from Medico a where a.nome = ?1"),
 		@NamedQuery(name = "Medico.findByEmail", query = "from Medico a where a.email = ?1"),

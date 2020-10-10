@@ -1,5 +1,7 @@
 package i9Life.controller;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -9,6 +11,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import i9Life.dao.GenericJPA_DAO;
+import i9Life.model.Cliente;
 import i9Life.model.Medico;
 
 public class MedicoController {
@@ -54,4 +57,65 @@ public class MedicoController {
 		}
 
 	}
+
+	// Ok
+	@SuppressWarnings("unchecked")
+	public static List<Medico> findByNome(String nome) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("dev");
+		EntityManager em = emf.createEntityManager();
+
+		Query query = em.createNamedQuery("Medico.findByNome");
+
+		query.setParameter(1, nome);
+
+		return query.getResultList();
+	}
+
+	// Ok
+	@SuppressWarnings("unchecked")
+	public static List<Medico> findAll() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("dev");
+		EntityManager em = emf.createEntityManager();
+
+		Query query = em.createNamedQuery("Medico.findAll");
+
+		return query.getResultList();
+	}
+
+	// Ok
+	public static void updateNome(String newNome, String email) {
+		GenericJPA_DAO<Medico> genericDao = new GenericJPA_DAO<Medico>();
+
+		Medico medicoAux = findByEmail(email);
+
+		if (medicoAux.getEmail().equals(email)) {
+			medicoAux.setNome(newNome);
+
+			genericDao.update(medicoAux);
+		}
+
+	}
+
+	// Ok
+	public static void updateEmail(String newEmail, String email) {
+		GenericJPA_DAO<Medico> genericDao = new GenericJPA_DAO<Medico>();
+
+		Medico medicoAux = findByEmail(email);
+
+		if (medicoAux.getEmail().equals(email)) {
+			medicoAux.setEmail(newEmail);
+
+			genericDao.update(medicoAux);
+
+		}
+	}
+
+	// Não ta funcionando
+	public static void delete(String email) {
+		GenericJPA_DAO<Medico> genericDAO = new GenericJPA_DAO<Medico>();
+
+		genericDAO.delete(email);
+
+	}
+
 }

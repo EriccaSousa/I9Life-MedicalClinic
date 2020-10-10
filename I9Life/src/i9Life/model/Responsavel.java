@@ -4,8 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@NamedQueries({ @NamedQuery(name = "Responsavel.findAll", query = "from Responsavel"),
+		@NamedQuery(name = "Responsavel.findByNome", query = "from Responsavel a where a.nome = ?1"),
+		@NamedQuery(name = "Responsavel.findByEmail", query = "from Responsavel a where a.email = ?1"),
+		@NamedQuery(name = "Responsavel.delete", query = "from Responsavel a where a.email = ?1") })
 public class Responsavel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

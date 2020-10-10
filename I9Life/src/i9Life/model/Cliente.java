@@ -13,10 +13,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "email", "cpf" }))
 @NamedQueries({ @NamedQuery(name = "Cliente.findAll", query = "from Cliente"),
 		@NamedQuery(name = "Cliente.findByNome", query = "from Cliente a where a.nome = ?1"),
 		@NamedQuery(name = "Cliente.findByEmail", query = "from Cliente a where a.email = ?1"),

@@ -1,6 +1,7 @@
 package i9Life.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,6 +12,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import i9Life.dao.GenericJPA_DAO;
+import i9Life.model.Administrador;
 import i9Life.model.Cliente;
 import i9Life.model.Endereco;
 import i9Life.model.Responsavel;
@@ -46,6 +48,19 @@ public class ClienteController {
 	}
 
 	// Ok
+	@SuppressWarnings("unchecked")
+	public static List<Cliente> findByNome(String nome) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("dev");
+		EntityManager em = emf.createEntityManager();
+
+		Query query = em.createNamedQuery("Cliente.findByNome");
+
+		query.setParameter(1, nome);
+
+		return query.getResultList();
+	}
+
+	// Ok
 	public static Cliente findByEmail(String email) {
 
 		try {
@@ -64,4 +79,52 @@ public class ClienteController {
 		}
 
 	}
+
+	// Ok
+	@SuppressWarnings("unchecked")
+	public static List<Cliente> findAll() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("dev");
+		EntityManager em = emf.createEntityManager();
+
+		Query query = em.createNamedQuery("Cliente.findAll");
+
+		return query.getResultList();
+	}
+
+	// Ok
+	public static void updateNome(String newNome, String email) {
+		GenericJPA_DAO<Cliente> genericDao = new GenericJPA_DAO<Cliente>();
+
+		Cliente clienteAux = findByEmail(email);
+
+		if (clienteAux.getEmail().equals(email)) {
+			clienteAux.setNome(newNome);
+
+			genericDao.update(clienteAux);
+		}
+
+	}
+
+	// Ok
+	public static void updateEmail(String newEmail, String email) {
+		GenericJPA_DAO<Cliente> genericDao = new GenericJPA_DAO<Cliente>();
+
+		Cliente clienteAux = findByEmail(email);
+
+		if (clienteAux.getEmail().equals(email)) {
+			clienteAux.setEmail(newEmail);
+
+			genericDao.update(clienteAux);
+
+		}
+	}
+
+	// Não ta funcionando
+	public static void delete(String email) {
+		GenericJPA_DAO<Cliente> genericDAO = new GenericJPA_DAO<Cliente>();
+
+		genericDAO.delete(email);
+
+	}
+
 }

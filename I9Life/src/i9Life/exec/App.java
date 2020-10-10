@@ -29,37 +29,42 @@ public class App {
 		// "teste123");
 
 		/*
-		 * Date data = (Date) DateUtil.formatData("20/02/1999");
-		 * 
-		 * ClienteController.cadastra(0, "Teste 1", "00000000001", data,
-		 * "teste1@gmail.com", "observacoes teste 1", "Resp Teste 1",
-		 * "parentesco teste 1", "respteste1@gmail.com", "00000001", "bairro teste 1",
-		 * "01", "complemento teste 1", "cidade teste 1", "01", "000000001");
-		 */
-		/*
-		 * MedicoController.cadastra(0, "Medico teste", "00000000001",
-		 * "medicoteste@gmail.com", "00000000000", "especialidade");
-		 */
+		Date data = (Date) DateUtil.formatData("20/02/1999");
+
+		ClienteController.cadastra(0, "Teste 1", "00000000001", data, "teste1@gmail.com", "observacoes teste 1",
+				"Resp Teste 1", "parentesco teste 1", "respteste1@gmail.com", "00000001", "bairro teste 1", "01",
+				"complemento teste 1", "cidade teste 1", "01", "000000001");
+
+		
+		MedicoController.cadastra(0, "Medico teste", "00000000001", "medicoteste@gmail.com", "00000000000",
+				"especialidade");
+			
+*/
 		/*
 		 * System.out.println(ClienteController.findByEmail("teste1@gmail.com"));
 		 * System.out.println(MedicoController.findByEmail("medicoteste@gmail.com"));
 		 * 
-		 */
+		
 
-		/*
-		 * Date data = (Date) DateUtil.formatDataHora("20/10/2020 10:30:00");
-		 * 
-		 * ConsultaController.cadastra(0,
-		 * MedicoController.findByEmail("medicoteste@gmail.com"),
-		 * ClienteController.findByEmail("teste1@gmail.com"), data, "observacoes",
-		 * null);
-		 */
+		
+		  Date data = (Date) DateUtil.formatDataHora("20/10/2020 10:30:00");
+		  
+		  ConsultaController.cadastra(0,
+		  MedicoController.findByEmail("medicoteste@gmail.com"),
+		  ClienteController.findByEmail("teste1@gmail.com"), data, "observacoes",
+		  null);
+		  
+		*/
 
 		// System.out.println(ConsultaController.findById(1));
 
-		ProntuarioController.cadastra(0, "Obs", "diagnostico", ClienteController.findByEmail("teste1@gmail.com"),
-				MedicoController.findByEmail("medicoteste@gmail.com"), ConsultaController.findById(1));
-
+		
+		 ProntuarioController.cadastra(0, "Obs", "diagnostico",
+		  ClienteController.findByEmail("teste1@gmail.com"),
+		  MedicoController.findByEmail("medicoteste@gmail.com"),
+		  ConsultaController.findById(0));
+		  
+		  
 	}
 
 }

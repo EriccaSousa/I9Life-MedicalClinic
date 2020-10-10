@@ -130,6 +130,7 @@ public class AdministradorController {
 
 	}
 
+	// Ok
 	public static Administrador login(String email, String senha) {
 		if (Administrador.logar(email, senha) == true) {
 			Administrador admAux = findByEmail(email);
