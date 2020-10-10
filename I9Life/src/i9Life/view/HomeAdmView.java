@@ -126,7 +126,13 @@ public class HomeAdmView extends JFrame {
 		JMenuItem addMedicoAction = new JMenuItem("Add novo médico");
 		addMedicoAction.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				dispose();
+				try {
+					new CadastroMedicoView().setVisible(true);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		addMedicoAction.setForeground(new Color(72, 61, 139));
