@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -102,6 +103,13 @@ public class HomeAdmView extends JFrame {
 		JMenuItem addClienteAction = new JMenuItem("Add novo cliente");
 		addClienteAction.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				try {
+					new CadastroClienteView().setVisible(true);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		addClienteAction.setFont(new Font("Dialog", Font.BOLD, 13));
@@ -171,7 +179,7 @@ public class HomeAdmView extends JFrame {
 
 	public Administrador exportarObjeto(Administrador administrador) {
 		Administrador newAdministrador = administrador;
-		
+
 		return newAdministrador;
 	}
 }
