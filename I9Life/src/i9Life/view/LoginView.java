@@ -12,6 +12,8 @@ import i9Life.model.Administrador;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -31,7 +33,6 @@ public class LoginView extends JFrame {
 	private JLabel labelLogo;
 
 	public static void main(String[] args) {
-		
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -131,11 +132,11 @@ public class LoginView extends JFrame {
 		if (!(admAux.equals(null))) {
 			dispose();
 
-			new HomeAdmView().setVisible(true);
+			new HomeAdmView(admAux).setVisible(true);
 
-			System.out.println("Logado.");
 			return admAux;
 		} else {
+
 			restaurar();
 
 			return null;

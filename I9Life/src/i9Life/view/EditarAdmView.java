@@ -1,40 +1,42 @@
 package i9Life.view;
 
-import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import i9Life.controller.AdministradorController;
 import i9Life.model.Administrador;
 
-public class PerfilAdmView extends JFrame {
+import java.awt.Font;
+import java.awt.HeadlessException;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
+
+public class EditarAdmView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldNome;
 	private JTextField textFielEmail;
 	private JPasswordField passwordFieldSenha;
+	Administrador admAux;
 
 	public static void main(String[] args) {
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PerfilAdmView frame = new PerfilAdmView();
+					EditarAdmView frame = new EditarAdmView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +45,16 @@ public class PerfilAdmView extends JFrame {
 		});
 	}
 
-	public PerfilAdmView() {
+	public EditarAdmView(JPanel contentPane, JTextField textFieldNome, JTextField textFielEmail,
+			JPasswordField passwordFieldSenha) throws HeadlessException {
+		super();
+		this.contentPane = contentPane;
+		this.textFieldNome = textFieldNome;
+		this.textFielEmail = textFielEmail;
+		this.passwordFieldSenha = passwordFieldSenha;
+	}
+
+	public EditarAdmView() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1428, 777);
@@ -122,28 +133,22 @@ public class PerfilAdmView extends JFrame {
 		lblSenha.setBounds(98, 346, 55, 15);
 		contentPane.add(lblSenha);
 
-		JButton btnEditar = new JButton("Editar");
+		JButton btnEditar = new JButton("Salvar");
 		btnEditar.setBounds(451, 439, 98, 25);
 		contentPane.add(btnEditar);
-		
-		JButton btnExcluirConta = new JButton("Excluir Conta");
-		btnExcluirConta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnExcluirConta.setBounds(324, 439, 115, 25);
-		contentPane.add(btnExcluirConta);
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String inputValue = JOptionPane.showInputDialog("Informe seu email: ");
+				if (!(textFieldNome.getText().equals(admAux.getNome()))) {
+					AdministradorController.updateNome(textFieldNome.getText(), admAux.getEmail());
+				}
 
-				Administrador admAux = AdministradorController.findByEmail(inputValue);
+				if (!(textFielEmail.getText().equals(admAux.getEmail()))) {
+					AdministradorController.updateEmail(textFielEmail.getText(), admAux.getEmail());
+				}
 
-				dispose();
-
-				EditarAdmView newTelaEditarAdm = new EditarAdmView();
-				newTelaEditarAdm.exportarObjeto(admAux);
-				newTelaEditarAdm.setVisible(true);
+				if (!(passwordFieldSenha.getText().equals(admAux.getSenha()))) {
+					AdministradorController.updateSenha(passwordFieldSenha.getText(), admAux.getEmail());
+				}
 			}
 		});
 	}
@@ -152,5 +157,9 @@ public class PerfilAdmView extends JFrame {
 		textFieldNome.setText(administrador.getNome());
 		textFielEmail.setText(administrador.getEmail());
 		passwordFieldSenha.setText(administrador.getSenha());
+
+		admAux.setNome(administrador.getNome());
+		admAux.setEmail(administrador.getEmail());
+		admAux.setSenha(administrador.getSenha());
 	}
 }

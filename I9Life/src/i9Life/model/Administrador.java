@@ -70,29 +70,37 @@ public class Administrador {
 		this.senha = senha;
 	}
 
+	// Ok
 	public static Administrador criar(String email, String nome, String senha) {
 
-		if (senha.length() == 8) {
-			String senhaCriptografada = Criptografia.criptografa(senha);
-			Administrador newAdm = new Administrador(0, email, nome, senhaCriptografada);
-
-			return newAdm;
-		} else {
+		if (email.equals("") || nome.equals("") || senha.equals("")) {
 			return null;
+		} else {
+			if (senha.length() == 8) {
+				String senhaCriptografada = Criptografia.criptografa(senha);
+
+				Administrador newAdm = new Administrador(0, email, nome, senhaCriptografada);
+
+				return newAdm;
+			} else {
+				return null;
+			}
 		}
 
 	}
 
-	public static boolean logar(String email, String senha) {
+	public static Administrador logar(String email, String senha) {
+
 		Administrador admAux = AdministradorController.findByEmail(email);
+
 		if (!(admAux.equals(null))) {
 			if (Criptografia.descriptografa(admAux.getSenha()).equals(senha)) {
-				return true;
+				return admAux;
 			} else {
-				return false;
+				return null;
 			}
 		} else {
-			return false;
+			return null;
 		}
 	}
 

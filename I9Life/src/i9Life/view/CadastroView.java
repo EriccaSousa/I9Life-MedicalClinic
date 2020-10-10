@@ -104,25 +104,25 @@ public class CadastroView extends JFrame {
 						passwordFieldSenha.getText());
 
 				dispose();
-				new HomeAdmView().setVisible(true);
+				new LoginView().setVisible(true);
 				restaurar();
 			}
 		});
 		btnCadastrar.setBounds(1113, 545, 155, 44);
 		contentPane.add(btnCadastrar);
-		
+
 		btnLimpar = new JButton("Limpar\n");
 		btnLimpar.setForeground(new Color(102, 51, 204));
 		btnLimpar.setBackground(Color.WHITE);
 		btnLimpar.setFont(new Font("Dialog", Font.BOLD, 13));
 		btnLimpar.setBounds(956, 545, 145, 44);
 		contentPane.add(btnLimpar);
-		
+
 		label = new JLabel("");
 		label.setIcon(new ImageIcon(CadastroView.class.getResource("/images/Login.png")));
 		label.setBounds(92, 135, 663, 572);
 		contentPane.add(label);
-		
+
 		label_1 = new JLabel("");
 		label_1.setIcon(new ImageIcon(CadastroView.class.getResource("/images/logo.png")));
 		label_1.setBounds(956, 193, 211, 62);

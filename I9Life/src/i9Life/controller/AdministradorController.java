@@ -9,6 +9,7 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
 import i9Life.dao.GenericJPA_DAO;
 import i9Life.model.Administrador;
@@ -17,7 +18,7 @@ import i9Life.util.Criptografia;
 public class AdministradorController {
 
 	// Ok
-	public static void cadastraAdm(String nome, String email, String senha) {
+	public static Administrador cadastraAdm(String nome, String email, String senha) {
 
 		Administrador newAdm = Administrador.criar(email, nome, senha);
 
@@ -27,11 +28,19 @@ public class AdministradorController {
 
 				genericDAO.persist(newAdm);
 				genericDAO.close();
+
+				return newAdm;
 			} else {
 				System.out.println("Erro ao cadastrar Administrador.");
+
+				return null;
 			}
 		} catch (IllegalStateException | PersistenceException e) {
-			e.printStackTrace();
+			System.out.println("Erro ao realizar cadastro.");
+			JOptionPane.showMessageDialog(null,
+					"Erro ao realizar login. Verique se email e senha informados estão corretos.", "alerta",
+					JOptionPane.ERROR_MESSAGE);
+			return null;
 		}
 
 	}
@@ -62,7 +71,7 @@ public class AdministradorController {
 
 			return (Administrador) query.getSingleResult();
 
-		} catch (NoResultException | NonUniqueResultException | IllegalArgumentException e) {
+		} catch (NoResultException | NonUniqueResultException | IllegalArgumentException | NullPointerException e) {
 			System.out.println("Erro ao realizar pesquisa.");
 			return null;
 		}
@@ -132,11 +141,17 @@ public class AdministradorController {
 
 	// Ok
 	public static Administrador login(String email, String senha) {
-		if (Administrador.logar(email, senha) == true) {
-			Administrador admAux = findByEmail(email);
+		try {
+			Administrador admAux = Administrador.logar(email, senha);
 
-			return admAux;
-		} else {
+			if (!(admAux.equals(null))) {
+				return admAux;
+			} else {
+				System.out.println("Erro ao realizar login.");
+				return null;
+			}
+		} catch (NullPointerException e) {
+			System.out.println("Erro ao realizar login.");
 			return null;
 		}
 	}

@@ -1,19 +1,22 @@
 package i9Life.view;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
-import javax.swing.ImageIcon;
+import javax.swing.border.EmptyBorder;
+
+import i9Life.model.Administrador;
 
 public class HomeAdmView extends JFrame {
 
@@ -34,7 +37,12 @@ public class HomeAdmView extends JFrame {
 		});
 	}
 
-	public HomeAdmView() {
+	public HomeAdmView() throws HeadlessException {
+		super();
+		this.contentPane = contentPane;
+	}
+
+	public HomeAdmView(Administrador administrador) {
 		setBackground(UIManager.getColor("controlDkShadow"));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,8 +118,7 @@ public class HomeAdmView extends JFrame {
 		JMenuItem addMedicoAction = new JMenuItem("Add novo médico");
 		addMedicoAction.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dispose();
-				new PerfilAdmView().setVisible(true);
+
 			}
 		});
 		addMedicoAction.setForeground(new Color(72, 61, 139));
@@ -141,11 +148,30 @@ public class HomeAdmView extends JFrame {
 		findConsultaAction.setFont(new Font("Dialog", Font.BOLD, 13));
 		findConsultaAction.setForeground(new Color(72, 61, 139));
 
+		JMenuItem perfilAction = new JMenuItem("Visitar perfil");
+		perfilAction.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				PerfilAdmView newPerfiladm = new PerfilAdmView();
+				newPerfiladm.exportarObjeto(administrador);
+				newPerfiladm.setVisible(true);
+			}
+		});
+		perfilAction.setFont(new Font("Dialog", Font.BOLD, 13));
+		perfilAction.setForeground(new Color(72, 61, 139));
+
 		clientesMenu.add(addClienteAction);
 		clientesMenu.add(findClienteAction);
 		medicosMenu.add(addMedicoAction);
 		medicosMenu.add(findMedicoAction);
 		consultasMenu.add(addConsultaAction);
 		consultasMenu.add(findConsultaAction);
+		perfilMenu.add(perfilAction);
+	}
+
+	public Administrador exportarObjeto(Administrador administrador) {
+		Administrador newAdministrador = administrador;
+		
+		return newAdministrador;
 	}
 }
