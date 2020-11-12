@@ -2,7 +2,9 @@
 
 Um software médico de gestão voltado para otimizar o atendimento e gestão de clínicas médicas e consultórios.
 
-![I9lIFE](logo.png)
+<p align="center">
+  <img src="https://github.com/EriccaSousa/I9Life-MedicalClinic/blob/master/logo.png">
+</p>
 
 ## 🛠️ Construído com
 
