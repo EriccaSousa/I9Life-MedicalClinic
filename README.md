@@ -8,7 +8,5 @@
 
 ## 🛠️ Construído com
 
-Mencione as ferramentas que você usou para criar seu projeto
-
 * [Hibernate](https://hibernate.org/) - framework para o mapeamento objeto-relacional usado
 * [Maven](https://maven.apache.org/) - Gerente de Dependência
